@@ -21,14 +21,16 @@ export default class LatestNews extends Component {
     return <NewsItem {...item}/>
   }
   componentDidMount(){
-    this.props.fetchLatestNews()
+    this.props.fetchLatestNews(0)
   }
   render() {
+    const { news, page, pageCount, fetchLatestNews, isFetching } = this.props
     return (
       <View style={styles.container}>
         <NewsList
-          list={this.props.news}
+          list={news}
           renderRow={this._renderRow.bind(this)}
+          onEndReached={() => !isFetching && page <= pageCount && fetchLatestNews(page + 1)}
           />
       </View>
     )
@@ -38,6 +40,9 @@ export default class LatestNews extends Component {
 LatestNews.propTypes = {
   fetchLatestNews: PropTypes.func.isRequired,
   news: PropTypes.array.isRequired,
+  page: PropTypes.number.isRequired,
+  pageCount: PropTypes.number.isRequired,
+  isFetching: PropTypes.bool.isRequired,
 }
 
 export default connect(

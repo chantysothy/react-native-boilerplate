@@ -8,27 +8,44 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 import styles from './styles'
 
-const NewsList = ({ list, renderRow }) => {
-  const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-  const dataSource = ds.cloneWithRows(list)
-  return (
-    <View style={styles.container}>
-      <View style={styles.refresh}>
-        <Icon name="refresh" size={40}/>
+export default class NewsList extends Component {
+  constructor(props){
+    super(props)
+    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+    this.state = { ds }
+  }
+  updateDataSource(list){
+    this.setState({
+      ds: this.state.ds.cloneWithRows(list)
+    })
+  }
+  componentDidMount(){
+    this.updateDataSource.apply(this, [this.props.list])
+  }
+  componentWillReceiveProps({ list }){
+    this.updateDataSource.apply(this, [list])
+  }
+  render(){
+    const { renderRow, onEndReached } = this.props
+    return (
+      <View style={styles.container}>
+        <View style={styles.refresh}>
+          <Icon name="refresh" size={40}/>
+        </View>
+        <ListView
+          initialListSize={46}
+          dataSource={this.state.ds}
+          contentContainerStyle={styles.list}
+          renderRow={renderRow}
+          enableEmptySections={true}
+          onEndReached={onEndReached}
+          />
       </View>
-      <ListView
-        dataSource={dataSource}
-        contentContainerStyle={styles.list}
-        renderRow={renderRow}
-        enableEmptySections={true}
-        />
-    </View>
-  )
+    )
+  }
 }
 
 NewsList.propTypes = {
   renderRow: PropTypes.func.isRequired,
   list: PropTypes.array.isRequired,
 }
-
-export default NewsList

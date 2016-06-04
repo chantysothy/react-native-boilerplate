@@ -1,10 +1,12 @@
 const initialState = {
   news: [],
+  page: 0,
+  pageCount: 0,
   isFailed: true,
   isSuccess: false,
   isFetching: false
 }
-export function latestNews(state=initialState, { type, payload }){
+export function latestNews(state=initialState, { type, payload, page, pageCount }){
   switch (type) {
     case 'LATEST_NEWS_FETCH_BEGIN':
     return {
@@ -17,7 +19,12 @@ export function latestNews(state=initialState, { type, payload }){
     case 'LATEST_NEWS_FETCH_SUCCESS':
     return {
       ...state,
-      news: payload,
+      news: [
+        ...state.news,
+        ...payload
+      ],
+      page,
+      pageCount,
       isFailed: false,
       isSuccess: true,
       isFetching: false,
@@ -34,7 +41,7 @@ export function latestNews(state=initialState, { type, payload }){
   }
 }
 
-export function topNews(state=initialState, { type, payload }){
+export function topNews(state=initialState, { type, payload, page, pageCount }){
   switch (type) {
     case 'TOP_NEWS_FETCH_BEGIN':
     return {
@@ -47,7 +54,12 @@ export function topNews(state=initialState, { type, payload }){
     case 'TOP_NEWS_FETCH_SUCCESS':
     return {
       ...state,
-      news: payload,
+      news: [
+        ...state.news,
+        ...payload
+      ],
+      page,
+      pageCount,
       isFailed: false,
       isSuccess: true,
       isFetching: false,

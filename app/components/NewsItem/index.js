@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 import styles from './styles'
 
-const NewsItem = ({ objectID, title, points, author, url, num_comments }) => (
+const NewsItem = ({ objectID, title, points, author, url, num_comments=0 }) => (
   <View style={styles.row}>
     <TouchableOpacity style={styles.header} onPress={() => Linking.openURL(url)}>
       <Text style={styles.headerText}>{title}</Text>
@@ -29,7 +29,7 @@ NewsItem.propTypes = {
   points: PropTypes.number.isRequired,
   author: PropTypes.string.isRequired,
   url: PropTypes.string,
-  num_comments: PropTypes.number.isRequired,
+  num_comments: PropTypes.number,
 }
 
 export default NewsItem

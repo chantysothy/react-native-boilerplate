@@ -6,7 +6,7 @@ export default function fetchActionFactory(action, url, handlePayload){
     .then(res => res.json().then(data => {
       dispatch({
         type: `${action}_SUCCESS`,
-        payload: handlePayload ? handlePayload(data) : data
+        ...(handlePayload ? handlePayload(data) : {payload: data}),
       })
     }))
     .catch(error => {
