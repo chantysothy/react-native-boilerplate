@@ -10,6 +10,7 @@ module.exports = {
     ecmaFeatures: {
       jsx: true,
       experimentalObjectRestSpread: true,
+      classes: true
     }
   },
   plugins: [
@@ -34,13 +35,9 @@ module.exports = {
     'prefer-template': 'warn',
     'require-yield': 'error',
     'jsx-quotes': 'warn',
-    'react/forbid-prop-types': 'warn',
     'react/jsx-boolean-value': 'warn',
-    'react/jsx-closing-bracket-location': 'warn',
     'react/jsx-curly-spacing': 'warn',
-    'react/jsx-indent-props': 'warn',
     'react/jsx-max-props-per-line': 'warn',
-    'react/jsx-no-bind': 'warn',
     'react/jsx-no-duplicate-props': 'warn',
     'react/jsx-no-undef': 'warn',
     'react/sort-prop-types': 'warn',
