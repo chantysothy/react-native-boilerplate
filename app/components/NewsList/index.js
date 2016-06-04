@@ -8,7 +8,9 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 
 import styles from './styles'
 
-const RefreshableList = ({ dataSource, renderRow }) => {
+const NewsList = ({ list, renderRow }) => {
+  const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
+  const dataSource = ds.cloneWithRows(list)
   return (
     <View style={styles.container}>
       <View style={styles.refresh}>
@@ -18,14 +20,15 @@ const RefreshableList = ({ dataSource, renderRow }) => {
         dataSource={dataSource}
         contentContainerStyle={styles.list}
         renderRow={renderRow}
+        enableEmptySections={true}
         />
     </View>
   )
 }
 
-RefreshableList.propTypes = {
+NewsList.propTypes = {
   renderRow: PropTypes.func.isRequired,
-  dataSource: PropTypes.object.isRequired,
+  list: PropTypes.array.isRequired,
 }
 
-export default RefreshableList
+export default NewsList

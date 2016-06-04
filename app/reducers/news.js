@@ -4,9 +4,9 @@ const initialState = {
   isSuccess: false,
   isFetching: false
 }
-export function news(state=initialState, { type, payload }){
+export function latestNews(state=initialState, { type, payload }){
   switch (type) {
-    case 'NEWS_FETCH_BEGIN':
+    case 'LATEST_NEWS_FETCH_BEGIN':
     return {
       ...state,
       isFailed: false,
@@ -14,7 +14,7 @@ export function news(state=initialState, { type, payload }){
       isFetching: true,
     }
     break;
-    case 'NEWS_FETCH_SUCCESS':
+    case 'LATEST_NEWS_FETCH_SUCCESS':
     return {
       ...state,
       news: payload,
@@ -22,7 +22,37 @@ export function news(state=initialState, { type, payload }){
       isSuccess: true,
       isFetching: false,
     }
-    case 'NEWS_FETCH_ERROR':
+    case 'LATEST_NEWS_FETCH_ERROR':
+    return {
+      ...state,
+      isFailed: true,
+      isSuccess: false,
+      isFetching: false,
+    }
+    default:
+    return state
+  }
+}
+
+export function topNews(state=initialState, { type, payload }){
+  switch (type) {
+    case 'TOP_NEWS_FETCH_BEGIN':
+    return {
+      ...state,
+      isFailed: false,
+      isSuccess: false,
+      isFetching: true,
+    }
+    break;
+    case 'TOP_NEWS_FETCH_SUCCESS':
+    return {
+      ...state,
+      news: payload,
+      isFailed: false,
+      isSuccess: true,
+      isFetching: false,
+    }
+    case 'TOP_NEWS_FETCH_ERROR':
     return {
       ...state,
       isFailed: true,

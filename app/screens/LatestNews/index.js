@@ -13,23 +13,21 @@ import {
 import styles from './styles'
 import * as newsActions from '../../actions/news'
 
-import RefreshableList from '../../components/RefreshableList'
+import NewsList from '../../components/NewsList'
 import NewsItem from '../../components/NewsItem'
 
-export default class News extends Component {
+export default class LatestNews extends Component {
   _renderRow(item){
     return <NewsItem {...item}/>
   }
   componentDidMount(){
-    this.props.fetchNews()
+    this.props.fetchLatestNews()
   }
   render() {
-    const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-    const list = ds.cloneWithRows(this.props.news)
     return (
       <View style={styles.container}>
-        <RefreshableList
-          dataSource={list}
+        <NewsList
+          list={this.props.news}
           renderRow={this._renderRow.bind(this)}
           />
       </View>
@@ -37,12 +35,12 @@ export default class News extends Component {
   }
 }
 
-News.propTypes = {
-  fetchNews: PropTypes.func.isRequired,
+LatestNews.propTypes = {
+  fetchLatestNews: PropTypes.func.isRequired,
   news: PropTypes.array.isRequired,
 }
 
 export default connect(
-  state => state.news,
+  state => state.latestNews,
   dispatch => bindActionCreators(newsActions, dispatch)
-)(News)
+)(LatestNews)
