@@ -1,6 +1,9 @@
 import EStyleSheet from 'react-native-extended-stylesheet'
 
 const styles = EStyleSheet.create({
+  container: {
+    flex: 1,
+  },
   refresh: {
     position: 'absolute',
     top: 60,
@@ -12,7 +15,6 @@ const styles = EStyleSheet.create({
     marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
   },
   list: {
     marginTop: 60,
